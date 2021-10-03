@@ -12,7 +12,12 @@ import com.procrastinator.bmsmicroservice.bookmyshow.validators.impl.UserValidat
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -41,7 +46,7 @@ public class UserService {
             }
             user.setUserStatusEnum(UserStatusEnum.ACTIVE);
             User user1=userRepository.save(user);
-            return responseGenerator.createSuccessResponse(user1);
+            return responseGenerator.createSuccessResponse(user1,"User Added Successfully");
 
         }catch (RequestValidationException requestValidationException){
             log.error("Exception while Request Validation "+requestValidationException.getMessage());
@@ -51,13 +56,28 @@ public class UserService {
         }catch (Exception e){
             log.error("Unexpected Exception "+e.getMessage());
 
-            return responseGenerator.createFailedResponse(user, ErrorCodes.ERR_002.name(),e.getMessage());
+            return responseGenerator.createFailedResponse(user, ErrorCodes.ERR_002.name(),ErrorCodes.ERR_002.getValue());
         }
 
 
     }
 
     public UserResponse deleteUser(int id) {
-        return  null;
+        try {
+            Optional<User> user = userRepository.findById(id);
+            if (Objects.nonNull(user)) {
+                userRepository.deleteById(id);
+                return responseGenerator.createSuccessResponse(user.get(), "User deleted Successfully");
+            }
+        }catch (EmptyResultDataAccessException e){
+            return  responseGenerator.createFailedResponse((User) null,ErrorCodes.ERR_003.name(), ErrorCodes.ERR_003.getValue());
+        }
+        return null;
+    }
+
+    public List<User> getAllUsers() {
+
+        return userRepository.findAll();
+
     }
 }

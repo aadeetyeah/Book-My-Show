@@ -6,9 +6,9 @@ import com.procrastinator.bmsmicroservice.bookmyshow.model.User;
 import com.procrastinator.bmsmicroservice.bookmyshow.response.UserResponse;
 import com.procrastinator.bmsmicroservice.bookmyshow.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -22,7 +22,13 @@ public class UserController {
         return  userService.addUser(user);
     }
 
-    public UserResponse deleteUserById(int id){
-        return userService.deleteUser(id);
+    @DeleteMapping(RequestConstants.DELETE_USER_BY_ID_URI)
+    public UserResponse deleteUserById(@RequestParam int id){
+         return userService.deleteUser(id);
+    }
+
+    @GetMapping(RequestConstants.GET_ALL_USER_URI)
+    public List<User> fetchAllUsers(){
+        return userService.getAllUsers();
     }
 }

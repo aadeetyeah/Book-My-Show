@@ -7,5 +7,6 @@ package com.procrastinator.bmsmicroservice.bookmyshow.constant;
 
 public class RequestConstants {
     public final static String ADD_USER_URI="/addUser";
-
+    public final static String DELETE_USER_BY_ID_URI="/deleteUser";
+    public final static String GET_ALL_USER_URI="/getAllUsers";
 }

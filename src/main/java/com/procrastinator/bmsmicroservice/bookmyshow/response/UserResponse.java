@@ -17,4 +17,5 @@ public class UserResponse {
     private Date createdAt;
     private String errorCode;
     private String errorMessage;
+    private String message;
 }

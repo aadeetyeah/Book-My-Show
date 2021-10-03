@@ -1,6 +1,5 @@
 package com.procrastinator.bmsmicroservice.bookmyshow.model;
 
-import com.procrastinator.bmsmicroservice.bookmyshow.enums.CityNameEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,15 +14,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Movie")
-public class Movie {
+@Table(name="movie_state")
+public class TheatreState {
     @Id
     @GeneratedValue
-    private int movieID;
+    private int id;
 
+    private int movieID;
     private String movieName;
     private String duration;
-    private float price;
-    private List<String> languages;
+    private String time;
+    private String city;
+    private String date;
+    private String theatreState;
 
 }
