@@ -1,9 +1,9 @@
 package com.procrastinator.bmsmicroservice.bookmyshow.utils;
 
-import com.procrastinator.bmsmicroservice.bookmyshow.enums.UserStatusEnum;
 import com.procrastinator.bmsmicroservice.bookmyshow.model.Movie;
 import com.procrastinator.bmsmicroservice.bookmyshow.model.User;
 import com.procrastinator.bmsmicroservice.bookmyshow.response.MovieResponse;
+import com.procrastinator.bmsmicroservice.bookmyshow.response.MovieStateResponse;
 import com.procrastinator.bmsmicroservice.bookmyshow.response.UserResponse;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +27,16 @@ public class ResponseGenerator {
     public MovieResponse createFailedResponse(Movie movie,String errorCode,String errorMessage){
 
         return MovieResponse.builder().movieName(movie.getMovieName()).errorCode(errorCode).errorMessage(errorMessage).build();
+    }
+
+    public MovieStateResponse createSuccessResponse(int movieID, String message){
+
+        return MovieStateResponse.builder()
+                .movieID(movieID).message(message).build();
+    }
+    public MovieStateResponse createFailedResponse(int movieID,String errorCode,String errorMessage){
+
+        return MovieStateResponse.builder().movieID(movieID)
+                .errorCode(errorCode).errorMessage(errorMessage).build();
     }
 }

@@ -1,15 +1,19 @@
 package com.procrastinator.bmsmicroservice.bookmyshow.services;
 
+import com.procrastinator.bmsmicroservice.bookmyshow.constant.ProjectConstants;
 import com.procrastinator.bmsmicroservice.bookmyshow.enums.ErrorCodes;
 import com.procrastinator.bmsmicroservice.bookmyshow.enums.UserStatusEnum;
 import com.procrastinator.bmsmicroservice.bookmyshow.exceptions.RequestValidationException;
+import com.procrastinator.bmsmicroservice.bookmyshow.factory.ValidatorFactory;
 import com.procrastinator.bmsmicroservice.bookmyshow.model.User;
 import com.procrastinator.bmsmicroservice.bookmyshow.repository.MovieRepository;
 import com.procrastinator.bmsmicroservice.bookmyshow.repository.UserRepository;
 import com.procrastinator.bmsmicroservice.bookmyshow.response.UserResponse;
 import com.procrastinator.bmsmicroservice.bookmyshow.utils.ResponseGenerator;
+import com.procrastinator.bmsmicroservice.bookmyshow.validators.Validator;
 import com.procrastinator.bmsmicroservice.bookmyshow.validators.impl.UserValidator;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Constants;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -35,12 +39,17 @@ public class UserService {
     @Autowired
     private ResponseGenerator responseGenerator;
 
+    @Autowired
+    private ValidatorFactory validatorFactory;
+
     public UserResponse addUser(User user) {
         /* Before Adding a user we need to validate it.
         *
         * Request Validation */
         try {
-            log.info("Adding new user :" +user.toString());
+
+            Validator validator=validatorFactory.getValidator(ProjectConstants.USER_VALIDATOR);
+            validator.requestValidation(user);
             if(Strings.isEmpty(user.getUsername())) {
                 throw new RequestValidationException(ErrorCodes.ERR_001.name(), "Need to check!");
             }

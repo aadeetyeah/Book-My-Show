@@ -1,6 +1,7 @@
 package com.procrastinator.bmsmicroservice.bookmyshow.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,9 +14,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name="movie_state")
-public class TheatreState {
+public class MovieState {
     @Id
     @GeneratedValue
     private int id;

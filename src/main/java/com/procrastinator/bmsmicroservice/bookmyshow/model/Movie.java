@@ -24,6 +24,6 @@ public class Movie {
     private String movieName;
     private String duration;
     private float price;
-    private List<String> languages;
+    private String languages;
 
 }
