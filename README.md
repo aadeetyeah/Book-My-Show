@@ -1,5 +1,5 @@
 # Book-My-Show
-Book My Show Microservice using Spring-Boot and JPA(Hibernate)
+Book My Show Web-Service using Spring-Boot and JPA(Hibernate)
 
 
 Built using 
